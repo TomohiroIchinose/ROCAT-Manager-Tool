@@ -37,7 +37,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Line1 = new System.Windows.Forms.Label();
             this.Line2 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AddUserButton
@@ -59,7 +60,7 @@
             // 
             // ReadJson
             // 
-            this.ReadJson.Location = new System.Drawing.Point(544, 358);
+            this.ReadJson.Location = new System.Drawing.Point(586, 399);
             this.ReadJson.Name = "ReadJson";
             this.ReadJson.Size = new System.Drawing.Size(125, 23);
             this.ReadJson.TabIndex = 3;
@@ -69,7 +70,7 @@
             // 
             // WriteJson
             // 
-            this.WriteJson.Location = new System.Drawing.Point(544, 429);
+            this.WriteJson.Location = new System.Drawing.Point(586, 470);
             this.WriteJson.Name = "WriteJson";
             this.WriteJson.Size = new System.Drawing.Size(125, 23);
             this.WriteJson.TabIndex = 4;
@@ -79,7 +80,7 @@
             // UserName
             // 
             this.UserName.AutoSize = true;
-            this.UserName.Location = new System.Drawing.Point(120, 16);
+            this.UserName.Location = new System.Drawing.Point(136, 17);
             this.UserName.Name = "UserName";
             this.UserName.Size = new System.Drawing.Size(34, 12);
             this.UserName.TabIndex = 7;
@@ -88,7 +89,7 @@
             // RemoveName
             // 
             this.RemoveName.AutoSize = true;
-            this.RemoveName.Location = new System.Drawing.Point(314, 16);
+            this.RemoveName.Location = new System.Drawing.Point(330, 17);
             this.RemoveName.Name = "RemoveName";
             this.RemoveName.Size = new System.Drawing.Size(86, 12);
             this.RemoveName.TabIndex = 8;
@@ -98,19 +99,15 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.Line1);
-            this.panel1.Controls.Add(this.Line2);
-            this.panel1.Controls.Add(this.RemoveName);
-            this.panel1.Controls.Add(this.UserName);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 33);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(504, 501);
+            this.panel1.Size = new System.Drawing.Size(555, 480);
             this.panel1.TabIndex = 7;
             // 
             // Line1
             // 
             this.Line1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Line1.Location = new System.Drawing.Point(111, 28);
+            this.Line1.Location = new System.Drawing.Point(127, 29);
             this.Line1.Name = "Line1";
             this.Line1.Size = new System.Drawing.Size(50, 1);
             this.Line1.TabIndex = 9;
@@ -118,27 +115,48 @@
             // Line2
             // 
             this.Line2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Line2.Location = new System.Drawing.Point(307, 28);
+            this.Line2.Location = new System.Drawing.Point(323, 29);
             this.Line2.Name = "Line2";
             this.Line2.Size = new System.Drawing.Size(100, 1);
             this.Line2.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Location = new System.Drawing.Point(474, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 1);
+            this.label1.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(485, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 12);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Delete";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 565);
+            this.ClientSize = new System.Drawing.Size(742, 565);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.WriteJson);
             this.Controls.Add(this.ReadJson);
+            this.Controls.Add(this.Line1);
             this.Controls.Add(this.NewUserNameForm);
+            this.Controls.Add(this.Line2);
             this.Controls.Add(this.AddUserButton);
+            this.Controls.Add(this.RemoveName);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.UserName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "ROCAT Manager Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,6 +173,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label Line2;
         private System.Windows.Forms.Label Line1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
