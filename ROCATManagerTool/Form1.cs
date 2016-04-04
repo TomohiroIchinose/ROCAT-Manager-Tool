@@ -29,7 +29,7 @@ namespace ROCATManagerTool
             List<TextBox> userName = new List<TextBox>();
             List<NumericUpDown> removeNum = new List<NumericUpDown>();
 
-            int y = 78;
+            int y = 40;
 
             System.Diagnostics.Trace.WriteLine("テストで～す");
 

@@ -7,3 +7,12 @@ c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATMa
 c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csproj.GenerateResource.Cache
 c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.exe
 c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.pdb
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\ROCATManagerTool.exe.config
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.exe
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.pdb
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\ROCATManagerTool.exe
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\ROCATManagerTool.pdb
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csprojResolveAssemblyReference.cache
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.Form1.resources
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.Properties.Resources.resources
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csproj.GenerateResource.Cache

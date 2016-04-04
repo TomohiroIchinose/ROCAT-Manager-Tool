@@ -28,112 +28,113 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.AddUserButton = new System.Windows.Forms.Button();
+            this.NewUserNameForm = new System.Windows.Forms.TextBox();
+            this.ReadJson = new System.Windows.Forms.Button();
+            this.WriteJson = new System.Windows.Forms.Button();
+            this.UserName = new System.Windows.Forms.Label();
+            this.RemoveName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.Line2 = new System.Windows.Forms.Label();
+            this.Line1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // AddUserButton
             // 
-            this.button1.Location = new System.Drawing.Point(331, 530);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "ユーザ追加";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AddUserButton.Location = new System.Drawing.Point(331, 527);
+            this.AddUserButton.Name = "AddUserButton";
+            this.AddUserButton.Size = new System.Drawing.Size(75, 23);
+            this.AddUserButton.TabIndex = 0;
+            this.AddUserButton.Text = "ユーザ追加";
+            this.AddUserButton.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // NewUserNameForm
             // 
-            this.textBox2.Location = new System.Drawing.Point(45, 532);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(215, 19);
-            this.textBox2.TabIndex = 2;
+            this.NewUserNameForm.Location = new System.Drawing.Point(45, 529);
+            this.NewUserNameForm.Name = "NewUserNameForm";
+            this.NewUserNameForm.Size = new System.Drawing.Size(215, 19);
+            this.NewUserNameForm.TabIndex = 2;
             // 
-            // button2
+            // ReadJson
             // 
-            this.button2.Location = new System.Drawing.Point(544, 358);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(125, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Json読み込み";
-            this.button2.UseVisualStyleBackColor = true;
+            this.ReadJson.Location = new System.Drawing.Point(544, 358);
+            this.ReadJson.Name = "ReadJson";
+            this.ReadJson.Size = new System.Drawing.Size(125, 23);
+            this.ReadJson.TabIndex = 3;
+            this.ReadJson.Text = "Json読み込み";
+            this.ReadJson.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // WriteJson
             // 
-            this.button3.Location = new System.Drawing.Point(544, 429);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(125, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Json書き出し";
-            this.button3.UseVisualStyleBackColor = true;
+            this.WriteJson.Location = new System.Drawing.Point(544, 429);
+            this.WriteJson.Name = "WriteJson";
+            this.WriteJson.Size = new System.Drawing.Size(125, 23);
+            this.WriteJson.TabIndex = 4;
+            this.WriteJson.Text = "Json書き出し";
+            this.WriteJson.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // UserName
             // 
-            this.textBox1.Location = new System.Drawing.Point(31, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(215, 19);
-            this.textBox1.TabIndex = 6;
+            this.UserName.AutoSize = true;
+            this.UserName.Location = new System.Drawing.Point(115, 16);
+            this.UserName.Name = "UserName";
+            this.UserName.Size = new System.Drawing.Size(43, 12);
+            this.UserName.TabIndex = 7;
+            this.UserName.Text = "おなまえ";
             // 
-            // numericUpDown1
+            // RemoveName
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(298, 40);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 19);
-            this.numericUpDown1.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(118, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 12);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "おなまえ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(337, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "除去数";
+            this.RemoveName.AutoSize = true;
+            this.RemoveName.Location = new System.Drawing.Point(337, 16);
+            this.RemoveName.Name = "RemoveName";
+            this.RemoveName.Size = new System.Drawing.Size(41, 12);
+            this.RemoveName.TabIndex = 8;
+            this.RemoveName.Text = "除去数";
             // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.Line1);
+            this.panel1.Controls.Add(this.Line2);
+            this.panel1.Controls.Add(this.RemoveName);
+            this.panel1.Controls.Add(this.UserName);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(504, 501);
             this.panel1.TabIndex = 7;
+            // 
+            // Line2
+            // 
+            this.Line2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Line2.Location = new System.Drawing.Point(332, 28);
+            this.Line2.Name = "Line2";
+            this.Line2.Size = new System.Drawing.Size(50, 1);
+            this.Line2.TabIndex = 8;
+            // 
+            // Line1
+            // 
+            this.Line1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Line1.Location = new System.Drawing.Point(111, 28);
+            this.Line1.Name = "Line1";
+            this.Line1.Size = new System.Drawing.Size(50, 1);
+            this.Line1.TabIndex = 9;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 565);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.WriteJson);
+            this.Controls.Add(this.ReadJson);
+            this.Controls.Add(this.NewUserNameForm);
+            this.Controls.Add(this.AddUserButton);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "ROCAT Manager Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -143,15 +144,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button AddUserButton;
+        private System.Windows.Forms.TextBox NewUserNameForm;
+        private System.Windows.Forms.Button ReadJson;
+        private System.Windows.Forms.Button WriteJson;
+        private System.Windows.Forms.Label UserName;
+        private System.Windows.Forms.Label RemoveName;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label Line2;
+        private System.Windows.Forms.Label Line1;
     }
 }
 
