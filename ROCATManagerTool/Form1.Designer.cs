@@ -35,8 +35,8 @@
             this.UserName = new System.Windows.Forms.Label();
             this.RemoveName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Line2 = new System.Windows.Forms.Label();
             this.Line1 = new System.Windows.Forms.Label();
+            this.Line2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,8 +46,9 @@
             this.AddUserButton.Name = "AddUserButton";
             this.AddUserButton.Size = new System.Drawing.Size(75, 23);
             this.AddUserButton.TabIndex = 0;
-            this.AddUserButton.Text = "ユーザ追加";
+            this.AddUserButton.Text = "Add User";
             this.AddUserButton.UseVisualStyleBackColor = true;
+            this.AddUserButton.Click += new System.EventHandler(this.AddUserButton_Click);
             // 
             // NewUserNameForm
             // 
@@ -62,8 +63,9 @@
             this.ReadJson.Name = "ReadJson";
             this.ReadJson.Size = new System.Drawing.Size(125, 23);
             this.ReadJson.TabIndex = 3;
-            this.ReadJson.Text = "Json読み込み";
+            this.ReadJson.Text = "Read File";
             this.ReadJson.UseVisualStyleBackColor = true;
+            this.ReadJson.Click += new System.EventHandler(this.ReadJson_Click);
             // 
             // WriteJson
             // 
@@ -71,26 +73,26 @@
             this.WriteJson.Name = "WriteJson";
             this.WriteJson.Size = new System.Drawing.Size(125, 23);
             this.WriteJson.TabIndex = 4;
-            this.WriteJson.Text = "Json書き出し";
+            this.WriteJson.Text = "Write File";
             this.WriteJson.UseVisualStyleBackColor = true;
             // 
             // UserName
             // 
             this.UserName.AutoSize = true;
-            this.UserName.Location = new System.Drawing.Point(115, 16);
+            this.UserName.Location = new System.Drawing.Point(120, 16);
             this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(43, 12);
+            this.UserName.Size = new System.Drawing.Size(34, 12);
             this.UserName.TabIndex = 7;
-            this.UserName.Text = "おなまえ";
+            this.UserName.Text = "Name";
             // 
             // RemoveName
             // 
             this.RemoveName.AutoSize = true;
-            this.RemoveName.Location = new System.Drawing.Point(337, 16);
+            this.RemoveName.Location = new System.Drawing.Point(314, 16);
             this.RemoveName.Name = "RemoveName";
-            this.RemoveName.Size = new System.Drawing.Size(41, 12);
+            this.RemoveName.Size = new System.Drawing.Size(86, 12);
             this.RemoveName.TabIndex = 8;
-            this.RemoveName.Text = "除去数";
+            this.RemoveName.Text = "Removed SATD";
             // 
             // panel1
             // 
@@ -105,14 +107,6 @@
             this.panel1.Size = new System.Drawing.Size(504, 501);
             this.panel1.TabIndex = 7;
             // 
-            // Line2
-            // 
-            this.Line2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Line2.Location = new System.Drawing.Point(332, 28);
-            this.Line2.Name = "Line2";
-            this.Line2.Size = new System.Drawing.Size(50, 1);
-            this.Line2.TabIndex = 8;
-            // 
             // Line1
             // 
             this.Line1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -120,6 +114,14 @@
             this.Line1.Name = "Line1";
             this.Line1.Size = new System.Drawing.Size(50, 1);
             this.Line1.TabIndex = 9;
+            // 
+            // Line2
+            // 
+            this.Line2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Line2.Location = new System.Drawing.Point(307, 28);
+            this.Line2.Name = "Line2";
+            this.Line2.Size = new System.Drawing.Size(100, 1);
+            this.Line2.TabIndex = 8;
             // 
             // Form1
             // 

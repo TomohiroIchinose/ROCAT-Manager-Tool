@@ -10,8 +10,12 @@ using System.Windows.Forms;
 
 namespace ROCATManagerTool
 {
+
     public partial class Form1 : Form
     {
+        List<TextBox> userName = new List<TextBox>();
+        List<NumericUpDown> removeNum = new List<NumericUpDown>();
+
         public Form1()
         {
             InitializeComponent();
@@ -20,18 +24,18 @@ namespace ROCATManagerTool
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            System.Diagnostics.Trace.WriteLine("テストで～す");
-            MakeUserForms(20);
+            //MakeUserForms(20);
+            NewUserNameForm.Enabled = false;
+            AddUserButton.Enabled = false;
         }
 
+
+        // はじめにフォームを作る（値は適当）
         public void MakeUserForms(int num)
         {
-            List<TextBox> userName = new List<TextBox>();
-            List<NumericUpDown> removeNum = new List<NumericUpDown>();
+            
 
             int y = 40;
-
-            System.Diagnostics.Trace.WriteLine("テストで～す");
 
             for(int i = 0; i < num; i++)
             {
@@ -57,6 +61,43 @@ namespace ROCATManagerTool
             }
         }
 
-        
+
+        // ユーザ追加
+        private void AddUserButton_Click(object sender, EventArgs e)
+        {
+            TextBox newUser = new TextBox();
+            NumericUpDown newNum = new NumericUpDown();
+
+            int usernum = userName.Count;
+
+            newUser.Location = new Point(31, userName[usernum-1].Location.Y + 38);
+            newNum.Location = new Point(298, removeNum[usernum - 1].Location.Y + 38);
+
+            newUser.Text = NewUserNameForm.Text;
+            NewUserNameForm.Text = "";
+            newNum.Value = 0;
+
+            newUser.Size = new Size(215, 19);
+            newNum.Size = new Size(120, 19);
+
+            userName.Add(newUser);
+            removeNum.Add(newNum);
+
+            this.panel1.Controls.Add(newUser);
+            this.panel1.Controls.Add(newNum);
+
+
+            // お名前が空欄時に追加しない
+            // 既にある名前は追加しない
+        }
+
+
+        // ファイル読み込み
+        private void ReadJson_Click(object sender, EventArgs e)
+        {
+            NewUserNameForm.Enabled = true;
+            AddUserButton.Enabled = true;
+            MakeUserForms(20);
+        }
     }
 }
