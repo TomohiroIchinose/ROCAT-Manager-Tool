@@ -1,0 +1,9 @@
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\bin\Debug\ROCATManagerTool.exe.config
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\bin\Debug\ROCATManagerTool.exe
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\bin\Debug\ROCATManagerTool.pdb
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csprojResolveAssemblyReference.cache
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.Form1.resources
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.Properties.Resources.resources
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csproj.GenerateResource.Cache
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.exe
+c:\users\ichinose\documents\visual studio 2015\Projects\ROCATManagerTool\ROCATManagerTool\obj\Debug\ROCATManagerTool.pdb
