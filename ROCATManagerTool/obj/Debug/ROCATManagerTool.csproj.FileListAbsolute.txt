@@ -16,3 +16,5 @@ C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCAT
 C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.Form1.resources
 C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.Properties.Resources.resources
 C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csproj.GenerateResource.Cache
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Newtonsoft.Json.xml

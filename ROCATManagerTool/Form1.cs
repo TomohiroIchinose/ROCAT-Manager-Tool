@@ -7,16 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.ServiceModel.Web;
+using System.ServiceModel;
+using System.IO;
 
 namespace ROCATManagerTool
 {
-
     public partial class Form1 : Form
     {
         List<string> userNameList = new List<string>();
         List<TextBox> userNameBoxList = new List<TextBox>();
         List<NumericUpDown> removeNumList = new List<NumericUpDown>();
         List<Button> deleteList = new List<Button>();
+
 
         public Form1()
         {
@@ -136,6 +141,43 @@ namespace ROCATManagerTool
             AddUserButton.Enabled = true;
 
             MakeUserForms(20);
+            ReadJsonFile();
         }
+
+
+        // jsonファイルを読み込む
+        private void ReadJsonFile()
+        {
+           // StreamReader file = File.OpenText("test2.json");
+
+            // Jsonファイルを読み込む
+            var text = File.ReadAllText("test.json");
+
+            // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
+            int index = text.IndexOf("\"SATDRanking\": ") + 15;
+
+            // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
+            var newtext = text.Substring(index, text.Length - index - 1);
+
+            // ランキング部分だけの文字列からデータを読み出す
+            var list = JsonConvert.DeserializeObject<List<User>>(newtext);
+
+            foreach (var item in list)
+            {
+                Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+            }
+
+        }
+    }
+
+    // ユーザのクラス
+    [DataContract]
+    public class User
+    {
+        [DataMember]
+        public string name { get; set; }
+
+        [DataMember]
+        public int num { get; set; }
     }
 }
