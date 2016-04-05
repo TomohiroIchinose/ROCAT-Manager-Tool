@@ -151,7 +151,7 @@ namespace ROCATManagerTool
            // StreamReader file = File.OpenText("test2.json");
 
             // Jsonファイルを読み込む
-            var text = File.ReadAllText("test.json");
+            var text = File.ReadAllText("test.json", System.Text.Encoding.GetEncoding("Shift_JIS"));
 
             // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
             int index = text.IndexOf("\"SATDRanking\": ") + 15;
