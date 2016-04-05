@@ -13,7 +13,8 @@ namespace ROCATManagerTool
 
     public partial class Form1 : Form
     {
-        List<TextBox> userNameList = new List<TextBox>();
+        List<string> userNameList = new List<string>();
+        List<TextBox> userNameBoxList = new List<TextBox>();
         List<NumericUpDown> removeNumList = new List<NumericUpDown>();
         List<Button> deleteList = new List<Button>();
 
@@ -56,7 +57,8 @@ namespace ROCATManagerTool
                 oneNum.Value = i;
                 oneDelete.Text = "×";
 
-                userNameList.Add(oneUser);
+                userNameList.Add(oneUser.Text);
+                userNameBoxList.Add(oneUser);
                 removeNumList.Add(oneNum);
                 deleteList.Add(oneDelete);
 
@@ -70,16 +72,35 @@ namespace ROCATManagerTool
         }
 
 
-        // ユーザ追加
+        // 新規ユーザ追加ボタン
         private void AddUserButton_Click(object sender, EventArgs e)
+        {
+            
+            if(NewUserNameForm.Text == null || NewUserNameForm.Text == "")  // おなまえが空なら追加しない
+            {
+                MessageBox.Show("Input User Name!!");
+            }
+            else if(userNameList.Contains(NewUserNameForm.Text))            // 同じ名前の人がいるなら追加しない
+            {
+                MessageBox.Show("Same Name User already exists!!");
+            }
+            else
+            {
+                AddUser();
+            }
+        }
+
+
+        // 新規ユーザ追加処理
+        private void AddUser()
         {
             TextBox newUser = new TextBox();
             NumericUpDown newNum = new NumericUpDown();
             Button newDelete = new Button();
 
-            int usernum = userNameList.Count;
+            int usernum = userNameBoxList.Count;
 
-            newUser.Location = new Point(31, userNameList[usernum-1].Location.Y + 38);
+            newUser.Location = new Point(31, userNameBoxList[usernum - 1].Location.Y + 38);
             newNum.Location = new Point(298, removeNumList[usernum - 1].Location.Y + 38);
             newDelete.Location = new Point(479, deleteList[usernum - 1].Location.Y + 38);
 
@@ -92,24 +113,21 @@ namespace ROCATManagerTool
             newNum.Size = new Size(120, 19);
             newDelete.Size = new Size(19, 19);
 
-            userNameList.Add(newUser);
+            userNameList.Add(newUser.Text);
+            userNameBoxList.Add(newUser);
             removeNumList.Add(newNum);
             deleteList.Add(newDelete);
 
             this.panel1.Controls.Add(newUser);
             this.panel1.Controls.Add(newNum);
             this.panel1.Controls.Add(newDelete);
-
-
-            // お名前が空欄時に追加しない
-            // 既にある名前は追加しない
         }
 
 
-        // ファイル読み込み
+        // ファイル読み込みボタン
         private void ReadJson_Click(object sender, EventArgs e)
         {
-            userNameList.Clear();
+            userNameBoxList.Clear();
             removeNumList.Clear();
             deleteList.Clear();
             panel1.Controls.Clear();
