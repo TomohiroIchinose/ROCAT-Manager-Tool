@@ -17,10 +17,10 @@ namespace ROCATManagerTool
 {
     public partial class Form1 : Form
     {
-        List<string> userNameList = new List<string>();                 // ユーザの名前のリスト
+        List<User> userList = new List<User>();                         // ユーザのリスト
+
         List<TextBox> userNameBoxList = new List<TextBox>();            // ユーザの名前が入ったテキストボックスのリスト
 
-        List<int> removeNumList = new List<int>();                         // ユーザの除去数のリスト
         List<NumericUpDown> removeNumBoxList = new List<NumericUpDown>();  // ユーザの除去数の入ったボックスのリスト
 
         List<Button> deleteList = new List<Button>();                   // ユーザ削除用のボタンのリスト
@@ -40,41 +40,50 @@ namespace ROCATManagerTool
         }
 
 
-        // はじめにフォームを作る（値は適当）
-        public void MakeUserForms(int num)
+        // フォームを作る
+        public void MakeUserForms()
         {
-            
 
-            int y = 5;
+            int y = 5; // 各フォームのy軸の高さ設定用
 
-            for(int i = 0; i < num; i++)
+            for(int i = 0; i < userList.Count; i++)
             {
-                TextBox oneUser = new TextBox();
-                NumericUpDown oneNum = new NumericUpDown();
-                Button oneDelete = new Button();
+                TextBox oneUserName = new TextBox();        // ユーザのおなまえBox
+                NumericUpDown oneNum = new NumericUpDown(); // ユーザの除去数Box
+                Button oneDelete = new Button();            // ユーザの削除用ボタン
 
-                oneUser.Location = new Point(31, y);
+                // フォームの位置を指定
+                oneUserName.Location = new Point(31, y);
                 oneNum.Location = new Point(298, y);
                 oneDelete.Location = new Point(479, y);
 
-                oneUser.Size = new Size(215,19);
+                // フォームの大きさを指定
+                oneUserName.Size = new Size(215, 19);
                 oneNum.Size = new Size(120, 19);
                 oneDelete.Size = new Size(19, 19);
 
-                oneUser.Text = i.ToString();
-                oneNum.Value = i;
+                // フォームの値を設定
+                oneUserName.Text = userList[i].name;
+                oneNum.Value = userList[i].num;
                 oneDelete.Text = "×";
 
-                userNameList.Add(oneUser.Text);
-                userNameBoxList.Add(oneUser);
+                // フォームをリストに追加
+                userNameBoxList.Add(oneUserName);
                 removeNumBoxList.Add(oneNum);
                 deleteList.Add(oneDelete);
 
+                // y軸の値を変更
                 y += 38;
 
-                this.panel1.Controls.Add(oneUser);
+                this.panel1.Controls.Add(oneUserName);
                 this.panel1.Controls.Add(oneNum);
                 this.panel1.Controls.Add(oneDelete);
+
+            }
+
+            foreach (var item in userList)
+            {
+                Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
 
             }
 
@@ -88,12 +97,12 @@ namespace ROCATManagerTool
         // 新規ユーザ追加ボタン
         private void AddUserButton_Click(object sender, EventArgs e)
         {
-            
+           
             if(NewUserNameForm.Text == null || NewUserNameForm.Text == "")  // おなまえが空なら追加しない
             {
                 MessageBox.Show("Input User name!!");
             }
-            else if(userNameList.Contains(NewUserNameForm.Text))            // 同じ名前の人がいるなら追加しない
+            else if(userList.FindIndex(item => item.name == NewUserNameForm.Text) != -1)    // 同じ名前の人がいるなら追加しない
             {
                 MessageBox.Show("Same name user already exists!!");
             }
@@ -107,31 +116,36 @@ namespace ROCATManagerTool
         // 新規ユーザ追加処理
         private void AddUser()
         {
-            TextBox newUser = new TextBox();
+            User newUser = new User();
+            TextBox newUserName = new TextBox();
             NumericUpDown newNum = new NumericUpDown();
             Button newDelete = new Button();
 
             int usernum = userNameBoxList.Count;
 
-            newUser.Location = new Point(31, userNameBoxList[usernum - 1].Location.Y + 38);
+            newUserName.Location = new Point(31, userNameBoxList[usernum - 1].Location.Y + 38);
             newNum.Location = new Point(298, removeNumBoxList[usernum - 1].Location.Y + 38);
             newDelete.Location = new Point(479, deleteList[usernum - 1].Location.Y + 38);
 
-            newUser.Text = NewUserNameForm.Text;
+            newUserName.Text = NewUserNameForm.Text;
             NewUserNameForm.Text = "";
             newNum.Value = 0;
             newDelete.Text = "×";
 
-            newUser.Size = new Size(215, 19);
+            newUserName.Size = new Size(215, 19);
             newNum.Size = new Size(120, 19);
             newDelete.Size = new Size(19, 19);
 
-            userNameList.Add(newUser.Text);
-            userNameBoxList.Add(newUser);
+            newUser.name = newUserName.Text;
+            newUser.num = (int)newNum.Value;
+
+            userList.Add(newUser);
+
+            userNameBoxList.Add(newUserName);
             removeNumBoxList.Add(newNum);
             deleteList.Add(newDelete);
 
-            this.panel1.Controls.Add(newUser);
+            this.panel1.Controls.Add(newUserName);
             this.panel1.Controls.Add(newNum);
             this.panel1.Controls.Add(newDelete);
         }
@@ -141,10 +155,9 @@ namespace ROCATManagerTool
         private void ReadJson_Click(object sender, EventArgs e)
         {
             // 今表示しているデータを消す
-            userNameList.Clear();
-            userNameBoxList.Clear();
+            userList.Clear();
 
-            removeNumList.Clear();
+            userNameBoxList.Clear();
             removeNumBoxList.Clear();
 
             deleteList.Clear();
@@ -183,10 +196,12 @@ namespace ROCATManagerTool
                 foreach (var item in list)
                 {
                     Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+                    userList.Add(item);
+
                 }
 
                 // 読み込んだデータを基にフォームを作る
-                MakeUserForms(20);
+                MakeUserForms();
 
             }
 
