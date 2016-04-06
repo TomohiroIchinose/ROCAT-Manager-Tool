@@ -17,10 +17,13 @@ namespace ROCATManagerTool
 {
     public partial class Form1 : Form
     {
-        List<string> userNameList = new List<string>();
-        List<TextBox> userNameBoxList = new List<TextBox>();
-        List<NumericUpDown> removeNumList = new List<NumericUpDown>();
-        List<Button> deleteList = new List<Button>();
+        List<string> userNameList = new List<string>();                 // ユーザの名前のリスト
+        List<TextBox> userNameBoxList = new List<TextBox>();            // ユーザの名前が入ったテキストボックスのリスト
+
+        List<int> removeNumList = new List<int>();                         // ユーザの除去数のリスト
+        List<NumericUpDown> removeNumBoxList = new List<NumericUpDown>();  // ユーザの除去数の入ったボックスのリスト
+
+        List<Button> deleteList = new List<Button>();                   // ユーザ削除用のボタンのリスト
 
 
         public Form1()
@@ -64,7 +67,7 @@ namespace ROCATManagerTool
 
                 userNameList.Add(oneUser.Text);
                 userNameBoxList.Add(oneUser);
-                removeNumList.Add(oneNum);
+                removeNumBoxList.Add(oneNum);
                 deleteList.Add(oneDelete);
 
                 y += 38;
@@ -74,6 +77,11 @@ namespace ROCATManagerTool
                 this.panel1.Controls.Add(oneDelete);
 
             }
+
+            // 新規ユーザ追加を許可
+            NewUserNameForm.Enabled = true;
+            AddUserButton.Enabled = true;
+
         }
 
 
@@ -83,11 +91,11 @@ namespace ROCATManagerTool
             
             if(NewUserNameForm.Text == null || NewUserNameForm.Text == "")  // おなまえが空なら追加しない
             {
-                MessageBox.Show("Input User Name!!");
+                MessageBox.Show("Input User name!!");
             }
             else if(userNameList.Contains(NewUserNameForm.Text))            // 同じ名前の人がいるなら追加しない
             {
-                MessageBox.Show("Same Name User already exists!!");
+                MessageBox.Show("Same name user already exists!!");
             }
             else
             {
@@ -106,7 +114,7 @@ namespace ROCATManagerTool
             int usernum = userNameBoxList.Count;
 
             newUser.Location = new Point(31, userNameBoxList[usernum - 1].Location.Y + 38);
-            newNum.Location = new Point(298, removeNumList[usernum - 1].Location.Y + 38);
+            newNum.Location = new Point(298, removeNumBoxList[usernum - 1].Location.Y + 38);
             newDelete.Location = new Point(479, deleteList[usernum - 1].Location.Y + 38);
 
             newUser.Text = NewUserNameForm.Text;
@@ -120,7 +128,7 @@ namespace ROCATManagerTool
 
             userNameList.Add(newUser.Text);
             userNameBoxList.Add(newUser);
-            removeNumList.Add(newNum);
+            removeNumBoxList.Add(newNum);
             deleteList.Add(newDelete);
 
             this.panel1.Controls.Add(newUser);
@@ -132,15 +140,17 @@ namespace ROCATManagerTool
         // ファイル読み込みボタン
         private void ReadJson_Click(object sender, EventArgs e)
         {
+            // 今表示しているデータを消す
+            userNameList.Clear();
             userNameBoxList.Clear();
+
             removeNumList.Clear();
+            removeNumBoxList.Clear();
+
             deleteList.Clear();
             panel1.Controls.Clear();
 
-            NewUserNameForm.Enabled = true;
-            AddUserButton.Enabled = true;
-
-            MakeUserForms(20);
+            // ファイル読み込み処理へ
             ReadJsonFile();
         }
 
@@ -153,18 +163,31 @@ namespace ROCATManagerTool
             // Jsonファイルを読み込む
             var text = File.ReadAllText("test.json", System.Text.Encoding.GetEncoding("Shift_JIS"));
 
-            // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
-            int index = text.IndexOf("\"SATDRanking\": ") + 15;
 
-            // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
-            var newtext = text.Substring(index, text.Length - index - 1);
-
-            // ランキング部分だけの文字列からデータを読み出す
-            var list = JsonConvert.DeserializeObject<List<User>>(newtext);
-
-            foreach (var item in list)
+            // 街のJsonファイルじゃない場合はメッセージを出す
+            if (text.IndexOf("\"buildings\":") == -1)
             {
-                Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+                MessageBox.Show("The file is not ROCAT file!!");
+            }
+            else
+            {
+                // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
+                int index = text.IndexOf("\"SATDRanking\": ") + 15;
+
+                // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
+                var newtext = text.Substring(index, text.Length - index - 1);
+
+                // ランキング部分だけの文字列からデータを読み出す
+                var list = JsonConvert.DeserializeObject<List<User>>(newtext);
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+                }
+
+                // 読み込んだデータを基にフォームを作る
+                MakeUserForms(20);
+
             }
 
         }
