@@ -25,6 +25,8 @@ namespace ROCATManagerTool
 
         List<Button> deleteList = new List<Button>();                   // ユーザ削除用のボタンのリスト
 
+        String defaultDir = "C:\\";
+
 
         public Form1()
         {
@@ -86,10 +88,6 @@ namespace ROCATManagerTool
                 Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
 
             }
-
-            // 新規ユーザ追加を許可
-            NewUserNameForm.Enabled = true;
-            AddUserButton.Enabled = true;
 
         }
 
@@ -163,6 +161,9 @@ namespace ROCATManagerTool
             deleteList.Clear();
             panel1.Controls.Clear();
 
+            // 新規ユーザ追加を禁止
+            ProhibitAdduser();
+
             // ファイル読み込み処理へ
             ReadJsonFile();
         }
@@ -171,41 +172,84 @@ namespace ROCATManagerTool
         // jsonファイルを読み込む
         private void ReadJsonFile()
         {
-           // StreamReader file = File.OpenText("test2.json");
+            OpenFileDialog ofd = new OpenFileDialog();
+            System.IO.Stream s;
 
-            // Jsonファイルを読み込む
-            var text = File.ReadAllText("test.json", System.Text.Encoding.GetEncoding("Shift_JIS"));
+            ofd.Title = "Please select the ROCAT file";
+            ofd.InitialDirectory = defaultDir;
+            ofd.Filter = "Json file(*.json)|*.json";
+            ofd.FilterIndex = 0;
 
+            ofd.RestoreDirectory = true;   // ダイアログボックスを閉じる前に、現在のディレクトリを復元する
+            ofd.CheckFileExists = true;    // 存在しないファイルを指定すると警告
+            ofd.CheckPathExists = true;    // 存在しないパスを指定すると警告
+            ofd.DereferenceLinks = true;   // ショートカットを選択した場合、参照先のパスを取得する(Falseだとショートカットファイルそのものを取得)
 
-            // 街のJsonファイルじゃない場合はメッセージを出す
-            if (text.IndexOf("\"buildings\":") == -1)
+            if(ofd.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("The file is not ROCAT file!!");
-            }
-            else
-            {
-                // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
-                int index = text.IndexOf("\"SATDRanking\": ") + 15;
-
-                // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
-                var newtext = text.Substring(index, text.Length - index - 1);
-
-                // ランキング部分だけの文字列からデータを読み出す
-                var list = JsonConvert.DeserializeObject<List<User>>(newtext);
-
-                foreach (var item in list)
+                s = ofd.OpenFile();
+                if(s != null)
                 {
-                    Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
-                    userList.Add(item);
 
+                    // StreamReader file = File.OpenText("test2.json");
+
+                    // Jsonファイルを読み込む
+                    var text = File.ReadAllText(ofd.FileName, System.Text.Encoding.GetEncoding("Shift_JIS"));
+
+                    defaultDir = System.IO.Path.GetDirectoryName(ofd.FileName);
+
+                    // 街のJsonファイルじゃない場合はメッセージを出す
+                    if (text.IndexOf("\"buildings\":") == -1)
+                    {
+                        MessageBox.Show("The file is not ROCAT file!!");
+                    }
+                    else
+                    {
+                        // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
+                        int index = text.IndexOf("\"SATDRanking\": ") + 15;
+
+                        // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
+                        var newtext = text.Substring(index, text.Length - index - 1);
+
+                        // ランキング部分だけの文字列からデータを読み出す
+                        var list = JsonConvert.DeserializeObject<List<User>>(newtext);
+
+                        foreach (var item in list)
+                        {
+                            Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+                            userList.Add(item);
+
+                        }
+
+                        // 読み込んだデータを基にフォームを作る
+                        MakeUserForms();
+                        AllowAddUser();
+                        s.Close();
+
+                    }
                 }
-
-                // 読み込んだデータを基にフォームを作る
-                MakeUserForms();
-
             }
+
+
 
         }
+
+ 
+        // 新規ユーザ追加を許可
+        private void AllowAddUser()
+        {
+            NewUserNameForm.Enabled = true;
+            AddUserButton.Enabled = true;
+        }
+
+        // 新規ユーザ追加を禁止
+        private void ProhibitAdduser()
+        {
+            NewUserNameForm.Enabled = false;
+            AddUserButton.Enabled = false;
+        }
+
+
     }
 
     // ユーザのクラス
