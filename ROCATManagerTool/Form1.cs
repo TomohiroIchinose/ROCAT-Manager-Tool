@@ -71,7 +71,9 @@ namespace ROCATManagerTool
                 // フォームの値を設定
                 oneUserName.Text = userList[i].name;
                 oneNum.Value = userList[i].num;
-                oneDelete.Text = "×";
+                oneDelete.Text = "X";
+
+                oneDelete.Click += new EventHandler(this.DeleteButtonClick);
 
                 // フォームをリストに追加
                 userNameBoxList.Add(oneUserName);
@@ -132,7 +134,7 @@ namespace ROCATManagerTool
             newUserName.Text = NewUserNameForm.Text;
             NewUserNameForm.Text = "";
             newNum.Value = 0;
-            newDelete.Text = "×";
+            newDelete.Text = "X";
 
             newUserName.Size = new Size(215, 19);
             newNum.Size = new Size(120, 19);
@@ -142,6 +144,9 @@ namespace ROCATManagerTool
             newUser.num = (int)newNum.Value;
 
             userList.Add(newUser);
+
+
+            newDelete.Click += new EventHandler(this.DeleteButtonClick);
 
             userNameBoxList.Add(newUserName);
             removeNumBoxList.Add(newNum);
@@ -304,14 +309,24 @@ namespace ROCATManagerTool
                 // 元のJsonファイルの最初からインデックスのところまでの文字列
                 string cityText = jsonText.Substring(0, index);
 
-                int i = 0;
+                //int i = 0;
 
                 // ユーザリストのデータをJson用テキストにする
-                foreach(User one in userList)
+                //foreach(User one in userList)
+                //{
+                //    one.num = (int)removeNumBoxList[i].Value;
+                //    userText = userText + "\n        {\n            \"name\": \"" + one.name.ToString() + "\",\n            \"num\": " + one.num.ToString() + "\n        },";
+                //    i++;
+                //}
+
+                // ユーザの情報をJson用テキストにする
+                for(int i = 0; i < userNameBoxList.Count; i++)
                 {
-                    one.num = (int)removeNumBoxList[i].Value;
-                    userText = userText + "\n        {\n            \"name\": \"" + one.name.ToString() + "\",\n            \"num\": " + one.num.ToString() + "\n        },";
-                    i++;
+                    // 削除状態になっていない時だけ書き込む
+                    if(userNameBoxList[i].Enabled == true)
+                    {
+                        userText = userText + "\n        {\n            \"name\": \"" + userNameBoxList[i].Text + "\",\n            \"num\": " + removeNumBoxList[i].Value + "\n        },";
+                    }
                 }
 
                 userText = userText.Substring(0, userText.Length - 1);
@@ -352,6 +367,43 @@ namespace ROCATManagerTool
         private void ProhibitWrite()
         {
             WriteJson.Enabled = false;
+        }
+
+
+        // 削除ボタンのクリックイベントハンドラ
+        private void DeleteButtonClick(object sender, EventArgs e)
+        {
+            //クリックされたボタンのインデックス番号を取得する
+            int index = -1;
+            for (int i = 0; i < deleteList.Count; i++)
+            {
+                if (deleteList[i].Equals(sender))
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            DeleteUser(index);
+        }
+
+        // ユーザ削除
+        private void DeleteUser(int index)
+        {
+            if(deleteList[index].Text == "X")
+            {
+                userNameBoxList[index].Enabled = false;
+                removeNumBoxList[index].Enabled = false;
+                deleteList[index].Text = "C";
+            }
+            else
+            {
+                userNameBoxList[index].Enabled = true;
+                removeNumBoxList[index].Enabled = true;
+                deleteList[index].Text = "X";
+            }
+            
+            
         }
 
 
