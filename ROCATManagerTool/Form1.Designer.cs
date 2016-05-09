@@ -76,6 +76,7 @@
             this.WriteJson.TabIndex = 4;
             this.WriteJson.Text = "Write File";
             this.WriteJson.UseVisualStyleBackColor = true;
+            this.WriteJson.Click += new System.EventHandler(this.WriteJson_Click);
             // 
             // UserName
             // 

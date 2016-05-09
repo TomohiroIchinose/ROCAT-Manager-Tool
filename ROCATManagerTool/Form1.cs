@@ -27,6 +27,10 @@ namespace ROCATManagerTool
 
         String defaultDir = "C:\\";
 
+        String fileName;
+
+        String jsonText;
+
 
         public Form1()
         {
@@ -37,8 +41,8 @@ namespace ROCATManagerTool
         private void Form1_Load(object sender, EventArgs e)
         {
             //MakeUserForms(20);
-            NewUserNameForm.Enabled = false;
-            AddUserButton.Enabled = false;
+            ProhibitWrite();
+            ProhibitAdduser();
         }
 
 
@@ -164,6 +168,9 @@ namespace ROCATManagerTool
             // 新規ユーザ追加を禁止
             ProhibitAdduser();
 
+            // 書き込みを禁止
+            ProhibitWrite();
+
             // ファイル読み込み処理へ
             ReadJsonFile();
         }
@@ -195,8 +202,10 @@ namespace ROCATManagerTool
 
                     // Jsonファイルを読み込む
                     var text = File.ReadAllText(ofd.FileName, System.Text.Encoding.GetEncoding("Shift_JIS"));
+                    jsonText = text;
 
                     defaultDir = System.IO.Path.GetDirectoryName(ofd.FileName);
+                    fileName = Path.GetFileName(ofd.FileName);
 
                     // 街のJsonファイルじゃない場合はメッセージを出す
                     if (text.IndexOf("\"buildings\":") == -1)
@@ -223,8 +232,11 @@ namespace ROCATManagerTool
 
                         // 読み込んだデータを基にフォームを作る
                         MakeUserForms();
-                        AllowAddUser();
                         s.Close();
+
+                        // ユーザ追加と書き込みを許可
+                        AllowAddUser();
+                        AllowWrite();
 
                     }
                 }
@@ -247,6 +259,99 @@ namespace ROCATManagerTool
         {
             NewUserNameForm.Enabled = false;
             AddUserButton.Enabled = false;
+        }
+
+
+        // Jsonファイルにランキング情報を書き込む
+        private void WriteJsonFile()
+        {
+            //SaveFileDialogクラスのインスタンスを作成
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            //はじめのファイル名を指定する
+            sfd.FileName = fileName;
+
+            //はじめに表示されるフォルダを指定する
+            sfd.InitialDirectory = defaultDir;
+
+            //[ファイルの種類]に表示される選択肢を指定する
+            sfd.Filter =
+                "Json file(*.json)|*.json";
+            //[ファイルの種類]ではじめに
+            //「すべてのファイル」が選択されているようにしない
+            sfd.FilterIndex = 0;
+
+            //タイトルを設定する
+            sfd.Title = "Please save the ROCAT file";
+
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            sfd.RestoreDirectory = true;
+
+            //ダイアログを表示する
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                //OKボタンがクリックされたとき
+
+                // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所の次の改行まで）を設定
+                int index = jsonText.IndexOf("\"SATDRanking\": ") + 16;
+
+                // 書き込み用文字列
+                string allText = "";
+
+                // ユーザ部分の文字列
+                string userText = "";
+
+                // 元のJsonファイルの最初からインデックスのところまでの文字列
+                string cityText = jsonText.Substring(0, index);
+
+                int i = 0;
+
+                // ユーザリストのデータをJson用テキストにする
+                foreach(User one in userList)
+                {
+                    one.num = (int)removeNumBoxList[i].Value;
+                    userText = userText + "\n        {\n            \"name\": \"" + one.name.ToString() + "\",\n            \"num\": " + one.num.ToString() + "\n        },";
+                    i++;
+                }
+
+                userText = userText.Substring(0, userText.Length - 1);
+
+                allText = cityText + userText + "\n    ]\n}";
+
+                System.IO.Stream stream;
+                stream = sfd.OpenFile();
+
+                if(stream != null)
+                {
+                    System.IO.StreamWriter sw = new System.IO.StreamWriter(stream, System.Text.Encoding.GetEncoding("Shift_JIS"));
+                    sw.Write(allText);
+                    sw.Close();
+                    stream.Close();
+                }
+
+            }
+
+
+            
+
+        }
+
+        // 書き込みボタンクリック
+        private void WriteJson_Click(object sender, EventArgs e)
+        {
+            WriteJsonFile();
+        }
+
+        // 書き込みを許可
+        private void AllowWrite()
+        {
+            WriteJson.Enabled = true;
+        }
+
+        // 書き込みを禁止
+        private void ProhibitWrite()
+        {
+            WriteJson.Enabled = false;
         }
 
 
