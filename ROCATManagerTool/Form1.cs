@@ -12,6 +12,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel.Web;
 using System.ServiceModel;
 using System.IO;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 
 namespace ROCATManagerTool
 {
@@ -438,6 +440,59 @@ namespace ROCATManagerTool
             
             
         }
+
+
+        // 街のJsonファイルをつくる
+        //private void MakeCity_Click(object sender, EventArgs e)
+        //{
+            //FolderBrowserDialogクラスのインスタンスを作成
+        //    FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+            //上部に表示する説明テキストを指定する
+        //            fbd.Description = "Select Git Repository";
+            //ルートフォルダを指定する
+            //デフォルトでDesktop
+        //    fbd.RootFolder = Environment.SpecialFolder.Desktop;
+            //最初に選択するフォルダを指定する
+            //RootFolder以下にあるフォルダである必要がある
+        //    fbd.SelectedPath = @"C:";
+            //ユーザーが新しいフォルダを作成できるようにしない
+        //    fbd.ShowNewFolderButton = false;
+
+            //ダイアログを表示する
+        //    if (fbd.ShowDialog(this) == DialogResult.OK)
+        //    {
+                //選択されたフォルダを表示する
+        //        Console.WriteLine(fbd.SelectedPath);
+
+        //        if(JavaRadio.Checked)
+        //        {
+        //            Console.WriteLine(JavaRadio.Text);
+        //        }
+        //        else if(PythonRadio.Checked)
+        //        {
+        //            Console.WriteLine(PythonRadio.Text);
+        //        }
+        //        else if(RubyRadio.Checked)
+        //        {
+        //            Console.WriteLine(RubyRadio.Text);
+        //        }
+
+
+        //        ScriptEngine engine = Python.CreateEngine();
+        //        ScriptScope scope = engine.ExecuteFile("Scripts/project-analyzer.py");
+        //        engine.Operations.InvokeMember(scope, "main", "C:\\Users\\Ichinose\\guice", "java");
+
+
+                //ScriptScope scope = engine.ExecuteFile("Scripts/Hello.py");
+                // スクリプト側のメソッドの呼出し
+                //var result =
+                //    (int)engine.Operations.InvokeMember(scope, "compute", 100);
+
+                //System.Console.Write(result);
+         //   }
+      //  }
+
 
 
     }
