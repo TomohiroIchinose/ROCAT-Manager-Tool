@@ -127,9 +127,20 @@ namespace ROCATManagerTool
 
             int usernum = userNameBoxList.Count;
 
-            newUserName.Location = new Point(31, userNameBoxList[usernum - 1].Location.Y + 38);
-            newNum.Location = new Point(298, removeNumBoxList[usernum - 1].Location.Y + 38);
-            newDelete.Location = new Point(479, deleteList[usernum - 1].Location.Y + 38);
+            // 読み込み時のユーザが0でないとき
+            if(usernum != 0)
+            {
+                newUserName.Location = new Point(31, userNameBoxList[usernum - 1].Location.Y + 38);
+                newNum.Location = new Point(298, removeNumBoxList[usernum - 1].Location.Y + 38);
+                newDelete.Location = new Point(479, deleteList[usernum - 1].Location.Y + 38);
+            }
+            else
+            {
+                newUserName.Location = new Point(31, 5);
+                newNum.Location = new Point(298, 5);
+                newDelete.Location = new Point(479, 5);
+            }
+            
 
             newUserName.Text = NewUserNameForm.Text;
             NewUserNameForm.Text = "";
@@ -222,22 +233,28 @@ namespace ROCATManagerTool
                         // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
                         int index = text.IndexOf("\"SATDRanking\": ") + 15;
 
-                        // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
-                        var newtext = text.Substring(index, text.Length - index - 1);
 
-                        // ランキング部分だけの文字列からデータを読み出す
-                        var list = JsonConvert.DeserializeObject<List<User>>(newtext);
-
-                        foreach (var item in list)
+                        // SATDRankingが見つかった時
+                        if (index != 14)
                         {
-                            Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
-                            userList.Add(item);
 
+                            // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
+                            var newtext = text.Substring(index, text.Length - index - 1);
+
+                            // ランキング部分だけの文字列からデータを読み出す
+                            var list = JsonConvert.DeserializeObject<List<User>>(newtext);
+
+                            foreach (var item in list)
+                            {
+                                Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+                                userList.Add(item);
+
+                            }
+
+                            // 読み込んだデータを基にフォームを作る
+                            MakeUserForms();
+                            s.Close();
                         }
-
-                        // 読み込んだデータを基にフォームを作る
-                        MakeUserForms();
-                        s.Close();
 
                         // ユーザ追加と書き込みを許可
                         AllowAddUser();
@@ -306,8 +323,24 @@ namespace ROCATManagerTool
                 // ユーザ部分の文字列
                 string userText = "";
 
-                // 元のJsonファイルの最初からインデックスのところまでの文字列
-                string cityText = jsonText.Substring(0, index);
+                string cityText = "";
+
+                // SATDRankingが見つかった時
+                if (index != 15)
+                {
+                    // 元のJsonファイルの最初からインデックスのところまでの文字列
+                    cityText = jsonText.Substring(0, index);
+                }
+                // SATDRankingが見つからなかったとき（ランキング情報登録がはじめてのJsonファイル）
+                else
+                {
+                    // 元のJsonファイルの最初から最後の方の]まで取ってきてそこにランキング情報を追加する
+                    index = jsonText.Length - 3;
+
+                    cityText = jsonText.Substring(0, index) + ",\n    \"SATDRanking\": [";
+                }
+
+                
 
                 //int i = 0;
 
