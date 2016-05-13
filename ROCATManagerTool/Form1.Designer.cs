@@ -39,6 +39,12 @@
             this.Line2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.MakeCity = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.JavaRadio = new System.Windows.Forms.RadioButton();
+            this.PythonRadio = new System.Windows.Forms.RadioButton();
+            this.RubyRadio = new System.Windows.Forms.RadioButton();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddUserButton
@@ -138,11 +144,67 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "Delete";
             // 
+            // MakeCity
+            // 
+            this.MakeCity.Location = new System.Drawing.Point(586, 236);
+            this.MakeCity.Name = "MakeCity";
+            this.MakeCity.Size = new System.Drawing.Size(125, 23);
+            this.MakeCity.TabIndex = 14;
+            this.MakeCity.Text = "Make City File";
+            this.MakeCity.UseVisualStyleBackColor = true;
+            this.MakeCity.Click += new System.EventHandler(this.MakeCity_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.RubyRadio);
+            this.groupBox1.Controls.Add(this.PythonRadio);
+            this.groupBox1.Controls.Add(this.JavaRadio);
+            this.groupBox1.Location = new System.Drawing.Point(586, 107);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(125, 100);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Language";
+            // 
+            // JavaRadio
+            // 
+            this.JavaRadio.AutoSize = true;
+            this.JavaRadio.Checked = true;
+            this.JavaRadio.Location = new System.Drawing.Point(35, 20);
+            this.JavaRadio.Name = "JavaRadio";
+            this.JavaRadio.Size = new System.Drawing.Size(48, 16);
+            this.JavaRadio.TabIndex = 0;
+            this.JavaRadio.TabStop = true;
+            this.JavaRadio.Text = "Java";
+            this.JavaRadio.UseVisualStyleBackColor = true;
+            // 
+            // PythonRadio
+            // 
+            this.PythonRadio.AutoSize = true;
+            this.PythonRadio.Location = new System.Drawing.Point(35, 49);
+            this.PythonRadio.Name = "PythonRadio";
+            this.PythonRadio.Size = new System.Drawing.Size(58, 16);
+            this.PythonRadio.TabIndex = 1;
+            this.PythonRadio.Text = "Python";
+            this.PythonRadio.UseVisualStyleBackColor = true;
+            // 
+            // RubyRadio
+            // 
+            this.RubyRadio.AutoSize = true;
+            this.RubyRadio.Location = new System.Drawing.Point(35, 78);
+            this.RubyRadio.Name = "RubyRadio";
+            this.RubyRadio.Size = new System.Drawing.Size(49, 16);
+            this.RubyRadio.TabIndex = 2;
+            this.RubyRadio.Text = "Ruby";
+            this.RubyRadio.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 565);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.MakeCity);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.WriteJson);
@@ -158,6 +220,8 @@
             this.Name = "Form1";
             this.Text = "ROCAT Manager Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,6 +240,11 @@
         private System.Windows.Forms.Label Line1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button MakeCity;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton RubyRadio;
+        private System.Windows.Forms.RadioButton PythonRadio;
+        private System.Windows.Forms.RadioButton JavaRadio;
     }
 }
 

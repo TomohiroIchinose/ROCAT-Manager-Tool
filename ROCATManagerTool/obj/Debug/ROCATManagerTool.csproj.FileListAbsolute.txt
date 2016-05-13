@@ -18,13 +18,3 @@ C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCAT
 C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\obj\Debug\ROCATManagerTool.csproj.GenerateResource.Cache
 C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\IronPython.dll
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Microsoft.Scripting.dll
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Microsoft.Dynamic.dll
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Microsoft.Scripting.Metadata.dll
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\IronPython.xml
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Microsoft.Scripting.xml
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Microsoft.Dynamic.xml
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\Microsoft.Scripting.Metadata.xml
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\IronPython.Modules.dll
-C:\Users\Ichinose\Documents\Visual Studio 2015\Projects\ROCAT-Manager-Tool\ROCATManagerTool\bin\Debug\IronPython.Modules.xml

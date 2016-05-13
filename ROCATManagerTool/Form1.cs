@@ -12,8 +12,6 @@ using System.Runtime.Serialization;
 using System.ServiceModel.Web;
 using System.ServiceModel;
 using System.IO;
-using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
 
 namespace ROCATManagerTool
 {
@@ -443,58 +441,97 @@ namespace ROCATManagerTool
 
 
         // 街のJsonファイルをつくる
-        //private void MakeCity_Click(object sender, EventArgs e)
-        //{
+        private void MakeCity_Click(object sender, EventArgs e)
+        {
             //FolderBrowserDialogクラスのインスタンスを作成
-        //    FolderBrowserDialog fbd = new FolderBrowserDialog();
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
 
             //上部に表示する説明テキストを指定する
-        //            fbd.Description = "Select Git Repository";
+            fbd.Description = "Select Git Repository";
+
             //ルートフォルダを指定する
             //デフォルトでDesktop
-        //    fbd.RootFolder = Environment.SpecialFolder.Desktop;
+            fbd.RootFolder = Environment.SpecialFolder.Desktop;
+
             //最初に選択するフォルダを指定する
             //RootFolder以下にあるフォルダである必要がある
-        //    fbd.SelectedPath = @"C:";
+                fbd.SelectedPath = @"C:";
+
             //ユーザーが新しいフォルダを作成できるようにしない
-        //    fbd.ShowNewFolderButton = false;
+                fbd.ShowNewFolderButton = false;
 
+            if (fbd.ShowDialog(this) == DialogResult.OK)
+            {
+                int find = fbd.SelectedPath.LastIndexOf("\\");
+
+                string jsonFileName = fbd.SelectedPath.Substring(find + 1, fbd.SelectedPath.Length - find - 1) + ".json";
+
+                string checkedLang = "";
+
+                if (JavaRadio.Checked)
+                {
+                    checkedLang = "\"java\"";
+                }
+                else if (PythonRadio.Checked)
+                {
+                    checkedLang = "\"py\"";
+                }
+                else if (RubyRadio.Checked)
+                {
+                    checkedLang = "\"rb\"";
+                }
+
+                System.Diagnostics.Process pro = new System.Diagnostics.Process();
+
+                pro.StartInfo.FileName = "python";            // コマンド名
+                pro.StartInfo.Arguments = ".\\Scripts\\project-analyzer.py " + fbd.SelectedPath.ToString() + " " + checkedLang + " " + jsonFileName;               // 引数
+                //pro.StartInfo.Arguments = ".\\Scripts\\project-analyzer.py \"C:\\Users\\Ichinose\\guice\" \"java\" \"testcity.json\"";               // 引数
+                pro.StartInfo.CreateNoWindow = true;            // DOSプロンプトの黒い画面を非表示
+                pro.StartInfo.UseShellExecute = false;          // プロセスを新しいウィンドウで起動するか否か
+                pro.StartInfo.RedirectStandardOutput = true;    // 標準出力をリダイレクトして取得したい
+
+                pro.Start();
+
+                string output = pro.StandardOutput.ReadToEnd();
+                output.Replace("\r\r\n", "\n"); // 改行コード変換
+            }
+
+            //MessageBox.Show(output);
+
+
+            /*
             //ダイアログを表示する
-        //    if (fbd.ShowDialog(this) == DialogResult.OK)
-        //    {
+            if (fbd.ShowDialog(this) == DialogResult.OK)
+            {
                 //選択されたフォルダを表示する
-        //        Console.WriteLine(fbd.SelectedPath);
-
-        //        if(JavaRadio.Checked)
-        //        {
-        //            Console.WriteLine(JavaRadio.Text);
-        //        }
-        //        else if(PythonRadio.Checked)
-        //        {
-        //            Console.WriteLine(PythonRadio.Text);
-        //        }
-        //        else if(RubyRadio.Checked)
-        //        {
-        //            Console.WriteLine(RubyRadio.Text);
-        //        }
+                Console.WriteLine(fbd.SelectedPath);
 
 
-        //        ScriptEngine engine = Python.CreateEngine();
-        //        ScriptScope scope = engine.ExecuteFile("Scripts/project-analyzer.py");
-        //        engine.Operations.InvokeMember(scope, "main", "C:\\Users\\Ichinose\\guice", "java");
+                if (JavaRadio.Checked)
+                {
+                    Console.WriteLine(JavaRadio.Text);
+                }
+                else if(PythonRadio.Checked)
+                {
+                    Console.WriteLine(PythonRadio.Text);
+                }
+                else if(RubyRadio.Checked)
+                {
+                    Console.WriteLine(RubyRadio.Text);
+                }
 
 
-                //ScriptScope scope = engine.ExecuteFile("Scripts/Hello.py");
-                // スクリプト側のメソッドの呼出し
-                //var result =
-                //    (int)engine.Operations.InvokeMember(scope, "compute", 100);
+                ScriptEngine engine = Python.CreateEngine();
+                ScriptScope scope = engine.ExecuteFile("Scripts/project-analyzer.py");
+                var result =
+                    (int)engine.Operations.InvokeMember(scope, "main", "C:\\Users\\Ichinose\\guice", "java");
 
-                //System.Console.Write(result);
-         //   }
-      //  }
+                System.Console.Write(result);
+            }
+            */
 
-
-
+        }
+        
     }
 
     // ユーザのクラス
