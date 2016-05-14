@@ -69,6 +69,7 @@ class Project:
             #print "Writing"
             #json.dump(json_string, f, indent=4)
             f.write(json_string)
+            f.close()
         return json_string
 
     def is_target_file(self, file_path):

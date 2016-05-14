@@ -230,6 +230,9 @@ namespace ROCATManagerTool
                     }
                     else
                     {
+                        // フォームのタイトルを書き替える
+                        this.Text = "Rocat Manager Tool - " + fileName;
+
                         // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
                         int index = text.IndexOf("\"SATDRanking\": ") + 15;
 
@@ -253,7 +256,7 @@ namespace ROCATManagerTool
 
                             // 読み込んだデータを基にフォームを作る
                             MakeUserForms();
-                            s.Close();
+                                                       
                         }
 
                         // ユーザ追加と書き込みを許可
@@ -262,6 +265,8 @@ namespace ROCATManagerTool
 
                     }
                 }
+
+                s.Close();
             }
 
 
@@ -362,7 +367,9 @@ namespace ROCATManagerTool
                     }
                 }
 
-                userText = userText.Substring(0, userText.Length - 1);
+                // ユーザが0じゃないときだけテキストを調整
+                if(userText.Length != 0)
+                    userText = userText.Substring(0, userText.Length - 1);
 
                 allText = cityText + userText + "\n    ]\n}";
 
@@ -464,7 +471,7 @@ namespace ROCATManagerTool
             {
                 int find = fbd.SelectedPath.LastIndexOf("\\");
 
-                string jsonFileName = fbd.SelectedPath.Substring(find + 1, fbd.SelectedPath.Length - find - 1) + ".json";
+                string jsonFileName = ".\\Results\\" + fbd.SelectedPath.Substring(find + 1, fbd.SelectedPath.Length - find - 1) + ".json";
 
                 string checkedLang = "";
 
@@ -490,10 +497,32 @@ namespace ROCATManagerTool
                 pro.StartInfo.UseShellExecute = false;          // プロセスを新しいウィンドウで起動するか否か
                 pro.StartInfo.RedirectStandardOutput = true;    // 標準出力をリダイレクトして取得したい
 
+                Form2 frm = new Form2();
+                frm.Show();
+
                 pro.Start();
 
                 string output = pro.StandardOutput.ReadToEnd();
                 output.Replace("\r\r\n", "\n"); // 改行コード変換
+
+                //プロセス終了まで待機する
+                //WaitForExitはReadToEndの後である必要がある
+                //(親プロセス、子プロセスでブロック防止のため)
+                pro.WaitForExit();
+                pro.Close();
+                frm.Close();
+
+                if(File.Exists(jsonFileName))
+                {
+                    MessageBox.Show("Success!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed!");
+                }
+
+                
+                
             }
 
             //MessageBox.Show(output);
