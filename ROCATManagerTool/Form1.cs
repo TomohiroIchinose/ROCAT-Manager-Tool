@@ -233,7 +233,7 @@ namespace ROCATManagerTool
                     else
                     {
                         // フォームのタイトルを書き替える
-                        this.Text = "Rocat Manager Tool - " + fileName;
+                        this.Text = "ROCAT Manager Tool - " + fileName;
 
                         // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
                         int index = text.IndexOf("\"SATDRanking\": ") + 15;
