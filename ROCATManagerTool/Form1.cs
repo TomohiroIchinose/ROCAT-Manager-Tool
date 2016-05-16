@@ -25,11 +25,13 @@ namespace ROCATManagerTool
 
         List<Button> deleteList = new List<Button>();                   // ユーザ削除用のボタンのリスト
 
-        String defaultDir = "C:\\";
+        List<User> tempUserList = new List<User>();     // 新規Jsonファイル作成時に既に同名ファイルがあった時にユーザを保持しておくためのリスト
 
-        String fileName;
+        String defaultDir = "C:\\";     // ファイル読み込みの時に最初にアクセスするディレクトリ
 
-        String jsonText;
+        String fileName;    // 読み込んだJsonファイルのなまえ
+
+        String jsonText;    // 読み込んだJsonファイルの全部の内容
 
 
         public Form1()
@@ -450,6 +452,8 @@ namespace ROCATManagerTool
         // 街のJsonファイルをつくる
         private void MakeCity_Click(object sender, EventArgs e)
         {
+            Boolean flag = false;
+
             //FolderBrowserDialogクラスのインスタンスを作成
             FolderBrowserDialog fbd = new FolderBrowserDialog();
 
@@ -472,6 +476,16 @@ namespace ROCATManagerTool
                 int find = fbd.SelectedPath.LastIndexOf("\\");
 
                 string jsonFileName = ".\\Results\\" + fbd.SelectedPath.Substring(find + 1, fbd.SelectedPath.Length - find - 1) + ".json";
+
+
+                // 既に同名ファイルが存在するかチェック
+                if (File.Exists(jsonFileName))
+                {
+                    SaveTempUser(jsonFileName);
+                    flag = true;
+
+                }
+
 
                 string checkedLang = "";
 
@@ -512,6 +526,8 @@ namespace ROCATManagerTool
                 pro.Close();
                 frm.Close();
 
+
+                // ファイルがちゃんとつくれたかチェック
                 if(File.Exists(jsonFileName))
                 {
                     MessageBox.Show("Success!");
@@ -520,6 +536,9 @@ namespace ROCATManagerTool
                 {
                     MessageBox.Show("Failed!");
                 }
+
+                if (flag == true)
+                    WriteTempUser(jsonFileName);
 
                 
                 
@@ -559,6 +578,89 @@ namespace ROCATManagerTool
             }
             */
 
+        }
+
+
+        // 同名ファイルが存在していた時にユーザ情報を保持するための関数
+        private void SaveTempUser(string existFileName)
+        {
+            // Jsonファイルを読み込む
+            var text = File.ReadAllText(existFileName, System.Text.Encoding.GetEncoding("Shift_JIS"));
+
+            // 街のJsonファイルじゃない場合はメッセージを出す
+            if (text.IndexOf("\"buildings\":") == -1)
+            {
+                MessageBox.Show("The file is not ROCAT file!!");
+            }
+            else
+            {
+
+                // "SATDRanking"のタグがあるトコのインデックス（タグの次の[の場所）を設定
+                int index = text.IndexOf("\"SATDRanking\": ") + 15;
+
+
+                // SATDRankingが見つかった時
+                if (index != 14)
+                {
+
+                    // ランキング部分だけの文字列を作る（index～最後の}より1文字分前までがランキング部分）
+                    var newtext = text.Substring(index, text.Length - index - 1);
+
+                    // ランキング部分だけの文字列からデータを読み出す
+                    var list = JsonConvert.DeserializeObject<List<User>>(newtext);
+
+
+                    // tempUserListにユーザを残しとく
+                    foreach (var item in list)
+                    {
+                        Console.WriteLine("Name: {0}, Num: {1}", item.name, item.num);
+                        tempUserList.Add(item);
+
+                    }
+
+
+                }
+
+            }
+        }
+
+
+        // tempUserListにあるユーザを生成したJsonファイルに書き込む
+        private void WriteTempUser(string newFileName)
+        {
+            // 新しいJsonファイルを読み込む
+            var text = File.ReadAllText(newFileName, System.Text.Encoding.GetEncoding("Shift_JIS"));
+            string newJsonText = text;
+
+
+            // tempUserListのデータを文字列に変換
+            string userText = "";
+
+            for(int i = 0; i < tempUserList.Count; i++)
+            {
+               userText = userText + "\n        {\n            \"name\": \"" + tempUserList[i].name + "\",\n            \"num\": " + tempUserList[i].num.ToString() + "\n        },";
+            }
+
+            // ユーザが0じゃないときだけテキストを調整
+            if (userText.Length != 0)
+                userText = userText.Substring(0, userText.Length - 1);
+
+            // 街の部分の文字列を作る
+            string cityText = "";
+            int index = newJsonText.Length - 3;
+
+            cityText = newJsonText.Substring(0, index) + ",\n    \"SATDRanking\": [";
+
+            // 文字列全体
+            string allText = cityText + userText + "\n    ]\n}";
+
+            // 新しいファイルに書き込み
+            System.IO.StreamWriter sw = new StreamWriter(newFileName, false, Encoding.GetEncoding("Shift_JIS"));
+            sw.Write(allText);
+            sw.Close();
+
+            // tempUserListをクリア
+            tempUserList.Clear();
         }
         
     }
